@@ -1,0 +1,51 @@
+{% extends 'djangoapp/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid">
+    <p></p>
+    <div class="text-dark bg-light rounded" style="padding: 20px">
+    Search term: "{{search_term}}"
+    <br>Results: {{offset}}-{{m}} of {{total}}
+    </div>
+    <p></p>
+    <form class="form-inline bg-light rounded" action="{% url 'overview' %}" method="GET" style="padding: 20px">
+        <div class="row">
+            <div class="col-10">
+                <input name="q" class="form-control" type="text" placeholder="P-Number or Museum Number">
+            </div>
+            <div class="col-2">
+                <button type="submit" class="btn btn-outline-success mb-3">Search</button>
+            </div>
+            <input name='n' value="10" type="hidden">
+            <input name='offset' value="0" type="hidden">
+        </div>
+    </form>
+    <p></p>
+    <div class="text-dark bg-light rounded" style="padding: 20px">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+<!--        <th scope="col">key</th>-->
+        {% for column in articles.columns %}
+          <th scope="col">{{column}}</th>
+        {% endfor %}
+        </tr>
+      </thead>
+    {% for index, row in articles.iterrows %}
+        <tr class="clickable text-center" onclick="window.location='/j/tablet/{{row.key}}'" style="cursor: pointer;">
+<!--            <td scope="col" style="text-align:left"> {{ index }} </td>-->
+            {% for r in row %}
+                <td scope="col" style="text-align:left">{{ r }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </table>
+    </div>
+    <div class="text-dark bg-light rounded" style="padding: 20px">
+        <a href='/overview?q={{search_term}}&n={{n}}&offset={{m}}' class="btn btn-outline-success mb-3">Next</a>
+    </div>
+</div>
+
+
+{% endblock content %}

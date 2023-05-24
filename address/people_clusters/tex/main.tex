@@ -1,0 +1,81 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[pdfborder={0 0 0}]{hyperref}    % turns references into hyperlinks
+\usepackage[margin=20mm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{pdfpages}
+\usepackage{float}
+\usepackage{cleveref}
+\usepackage[justification=centering]{caption}
+\usepackage{url}
+\usepackage{etoolbox}
+\usepackage[inline]{enumitem}
+\usepackage[toc,page]{appendix}
+\usepackage{qrcode}
+\usepackage{fancyvrb}
+\usepackage{tocloft}
+\usepackage[utf8]{inputenc}
+\usepackage{pmboxdraw}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{newunicodechar}
+\usepackage{tipa}
+\usepackage{tikz}
+% \usepackage{notoccite}
+% \usepackage{cprotect}
+
+\setlength\cftparskip{2pt}
+\setlength\cftbeforechapskip{0pt}
+\raggedbottom
+\sloppy
+\clubpenalty1000%
+\widowpenalty1000%
+\renewcommand{\baselinestretch}{1.1}
+\newcommand{\quickwordcount}[1]{%
+\immediate\write18{texcount -1 -sum -merge #1.tex > #1-words}%
+\input{#1-words}words%
+}
+
+\DeclareUnicodeCharacter{1E2B}{{\textbottomtiebar{h}}}
+\DeclareUnicodeCharacter{1E2A}{{\textbottomtiebar{H}}}
+\DeclareUnicodeCharacter{1E62}{{\d{S}}}
+\DeclareUnicodeCharacter{1E63}{{\d{s}}}
+\DeclareUnicodeCharacter{1E6C}{{\d{T}}}
+\DeclareUnicodeCharacter{1E6D}{{\d{t}}}
+
+
+\title{Data Science in Assyriological Research - Appendix A}
+\author{Radzim Sendyka}
+\date{2023}
+
+\begin{document}
+%TC:ignore
+\pagenumbering{gobble}
+
+\begin{titlepage}
+\pagestyle{empty}
+
+\rightline{\Large \textbf{Radzim Sendyka}}
+
+\vspace*{60mm}
+\begin{center}
+\huge
+\textbf{Data Science in Assyriological Research --Appendix A} \\[5mm]
+Computer Science Tripos -- Part III \\[5mm]
+Churchill College \\[5mm]
+May 2023
+\vspace*{60mm}
+\\\includegraphics[width=8cm]{image.png}
+\end{center}
+\end{titlepage}
+
+\vspace*{30mm}
+
+\tableofcontents
+
+\pagestyle{headings}
+
+
+\include{body}
+
+\end{document}

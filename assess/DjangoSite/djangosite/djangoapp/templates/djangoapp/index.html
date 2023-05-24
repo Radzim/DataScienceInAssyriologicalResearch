@@ -1,0 +1,25 @@
+{% extends 'djangoapp/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid">
+    <p></p>
+    <div class="text-dark bg-light rounded" style="padding: 20px">
+    The proposed system is as follows: firstly, all the relevant available data about individual tablets would be parsed and connected into a single digital database. The database will have a UI, focused on allowing quick and computer-assisted data entry, that predicts the most probable input. We would also like to connect it to external data sources, to be overlaid on the interface to allow a more efficient workflow. On top of the data system, we would like to use machine learning to provide additional insights into the data, likelihood statistics of possible categorisation - for example attributing monarchs to partial dates provided in regnal years, and the detected relationships for each tablet, such as a graph of related tablets connected via recurring personal names (a basic example of this is attached). Please note that these plans will likely be narrowed down to fit the scope and timeline of the dissertation - we would love to hear your ideas on this.
+    </div>
+    <p></p>
+    <form class="form-inline bg-light rounded" action="{% url 'overview' %}" method="GET" style="padding: 20px">
+        <div class="row">
+            <div class="col-10">
+                <input name="q" class="form-control" type="text" placeholder="P-Number or Museum Number">
+            </div>
+            <div class="col-2">
+                <button type="submit" class="btn btn-outline-success mb-3">Search</button>
+            </div>
+            <input name='n' value="10" type="hidden">
+            <input name='offset' value="0" type="hidden">
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

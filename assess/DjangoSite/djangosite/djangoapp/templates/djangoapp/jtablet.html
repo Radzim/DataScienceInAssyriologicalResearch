@@ -1,0 +1,108 @@
+{% extends 'djangoapp/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-9">
+            <p></p>
+            <div class="text-dark bg-light rounded" style="padding: 20px">
+                <h4>Tablet ID: {{tablet_name}}</h4>
+                <h4>Museum Number: {{museum_no}}</h4>
+                <p>{{ tablet_info | safe }}</p>
+            </div>
+            <p></p>
+            <div class="text-dark bg-light rounded" style="padding: 20px">
+                <h4>CDLI Information:</h4>
+                {{ cdli_data | safe }}
+            </div>
+            <p></p>
+            <div class="text-dark bg-light rounded" style="padding: 20px">
+                <h4>Jon's Information:</h4>
+                {{ jon_data | safe }}
+            </div>
+            <p></p>
+            <div class="row" style="padding: 13px">
+                <div class="col-6 text-dark bg-light rounded" style="padding: 20px">
+                    <h4>Transcription:</h4>
+                    {{ cdli_transcription | safe | linebreaks}}
+                </div>
+                <div class="col-6 text-dark bg-light rounded" style="padding: 20px">
+                    <h4>Translation:</h4>
+                    {{ cdli_translation | safe | linebreaks}}
+                </div>
+            </div>
+            <div class="row" style="padding: 13px">
+                <div class="col-5 text-dark bg-light rounded" style="padding: 20px">
+                    <h4>Personal Names:</h4>
+                    {% for name in personal_names %}
+                        {{ name }} <br>
+                    {% endfor %}
+                </div>
+                <div class="col-5 text-dark bg-light rounded" style="padding: 20px">
+                    <h4>Related Tablets:</h4>
+                    {% for rt in related_tablets %}
+                        <a href="/j/tablet/{{rt.id}}"> {{ rt.mn }} </a> <br>
+                    {% endfor %}
+                </div>
+                <div class="col-2 text-dark bg-light rounded" style="padding: 20px">
+                    {% if personal_names%}
+                        <h4><a href="/j/graph/{{tablet_name}}">View Graph</a></h4>
+                    {% endif %}
+                </div>
+            </div>
+            {% if personal_names%}
+            <div class="text-dark bg-light rounded" style="padding: 20px">
+                    <h4><a href="/j/regnal/{{tablet_name}}">View Chronology Information</a></h4>
+            </div>
+            {% endif %}
+        </div>
+        <div class="col-3">
+            <div class="bg-secondary rounded" align="center">
+            <p></p>
+            {% for img in images %}
+                <div class="" style="padding: 20px">
+                    <picture>
+                      <img src="{% static img %}" class="rounded img-fluid" alt={{img}}>
+                    </picture>
+                </div>
+            {% endfor %}
+            </div>
+            <p></p>
+            <div class="bg-light rounded" align="center">
+            <p></p>
+            {% for img in images_transliterations %}
+                <div class="" style="padding: 20px">
+                    <picture>
+                      <img src="{% static img %}" class="rounded img-fluid" alt={{img}}>
+                    </picture>
+                </div>
+            {% endfor %}
+            </div>
+            <p></p>
+            <div class="bg-secondary rounded" align="center">
+            <p></p>
+            {% for img in images2 %}
+                <div class="" style="padding: 20px">
+                    <picture>
+                      <img src="{% static img %}" class="rounded img-fluid" alt={{img}}>
+                    </picture>
+                </div>
+            {% endfor %}
+            </div>
+            <p></p>
+            <div class="bg-light rounded" align="center">
+            <p></p>
+            {% for img in images_photos %}
+                <div class="" style="padding: 20px">
+                    <picture>
+                      <img src="{% static img %}" class="rounded img-fluid" alt={{img}}>
+                    </picture>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,161 @@
+{% extends 'djangoapp/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid">
+    <p></p>
+    <div class="text-dark bg-light rounded" style="height: 100%; padding: 20px">
+        <h5>{{ name }}: Personal Names and Linked Tablets with Regnal Information</h5>
+        {% for r in strings %}
+            {{ r | safe }}
+        {% endfor %}
+    </div>
+    <p></p>
+    <div class="text-dark bg-light rounded" style="height: 100%; padding: 20px; text-align: center;">
+        <h5>Tablet (Partial) Date: {{ partial_date }}</h5>
+    </div>
+    <p></p>
+    <div class="text-dark bg-light rounded" id="container2" style="height: 100%; padding: 20px"></div>
+    <p></p>
+    <div class="text-dark bg-light rounded" id="container3" style="height: 100%; padding: 20px"></div>
+    <p></p>
+    <div class="text-dark bg-light rounded" id="container" style="height: 100%; padding: 20px"></div>
+    <div class="text-dark bg-light rounded" style="padding: 20px; text-align: center;">
+        <a href="/j/graph/{{id}}">View Full Graph</a> (including un-dated tablets)
+    </div>
+    <p></p>
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/networkgraph.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script>
+        var dirDist50 = "#E8544E",
+          dirDist10 = "#FFD265",
+          dirDistLess10 = "#2AA775";
+
+        Highcharts.chart("container", {
+            credits: {
+                enabled: false
+            },
+          chart: {
+            type: "networkgraph",
+            height: 36.5 + '%',
+            marginTop: 80
+          },
+
+          title: {
+            text: "{{ name|escapejs }}: Linked Personal Names and Related Tablets (with Dates Only)"
+          },
+
+          tooltip: {
+            style: {
+              pointerEvents: 'auto'
+            },
+            formatter: function () {
+              if (this.point.type == 'tablet') {
+                return this.point.type + " <a href=/j/tablet/"+this.point.id +">"+this.point.id+"<\a>";
+              } else {
+                return this.point.type + " " + this.point.id
+              }
+            }
+          },
+
+          plotOptions: {
+            networkgraph: {
+              keys: ["from", "to"],
+              layoutAlgorithm: {
+                enableSimulation: true,
+                integration: "verlet",
+                linkLength: 100
+              }
+            }
+          },
+
+          series: [
+            {
+              marker: {
+                radius: 13,
+              },
+              dataLabels: {
+                enabled: true,
+                linkFormat: "",
+                allowOverlap: true,
+                style: {
+                  textOutline: false
+                }
+              },
+              data: JSON.parse("{{ data|escapejs }}"),
+              nodes: JSON.parse("{{ nodes|escapejs }}"),
+            }
+          ]
+        });
+    </script>
+    <script>
+        Highcharts.chart('container2', {
+            credits: {
+                enabled: false
+            },
+            chart: {
+                type: 'line'
+            },
+            title: {
+                text: '{{ name|escapejs }}: Statistical Prediction for Date of Origin'
+            },
+            xAxis: {
+                reversed: true,
+                tickPositions: JSON.parse("{{ ticks|escapejs }}")
+            },
+            yAxis: {
+                title: {
+                    text: 'Probability'
+                }
+            },
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        enabled: false
+                    },
+                    enableMouseTracking: true
+                }
+            },
+            series: JSON.parse("{{ series|escapejs }}")
+        });
+    </script>
+    <script>
+        Highcharts.chart('container3', {
+            credits: {
+                enabled: false
+            },
+            chart: {
+                type: 'line'
+            },
+            title: {
+                text: '{{ name|escapejs }}: Statistical Prediction using Partial Date'
+            },
+            xAxis: {
+                reversed: true,
+                tickPositions: JSON.parse("{{ ticks|escapejs }}")
+            },
+            yAxis: {
+                title: {
+                    text: 'Probability'
+                }
+            },
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        enabled: false
+                    },
+                    enableMouseTracking: true
+                }
+            },
+            series: JSON.parse("{{ series2|escapejs }}")
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+</div>
+
+{% endblock content %}
+

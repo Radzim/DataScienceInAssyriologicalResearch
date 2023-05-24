@@ -1,0 +1,24 @@
+{% extends 'djangoapp/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid">
+    <p></p>
+    <div class="text-dark bg-light rounded" style="padding: 20px">
+    Specialised keyboards can increase the speed on data entry, particularly in transliteration tasks. Below are resources to download a Windows keyboard layout created for this project, or alternatively, one created by Oracc.
+    </div>
+    <p></p>
+    <div class="text-dark bg-light rounded" style="padding: 20px">
+        <p>Cunei (developed for this project) <a href="/keyboards/cunei">[download]</a> </p>
+        <p></p>
+        <img src="{% static '/images/keyboard1.jpg' %}" width="33%"/>
+        <img src="{% static '/images/keyboard2.jpg' %}" width="33%"/>
+        <img src="{% static '/images/keyboard3.jpg' %}" width="33%"/>
+    </div>
+    <p></p>
+    <div class="text-dark bg-light rounded" style="padding: 20px">
+        <p>"usintlit" (can also be found at <a href="http://oracc.museum.upenn.edu/doc/help/visitingoracc/keyboards/index.html">oracc</a>) <a href="/keyboards/usintlit">[download]</a></p>
+    </div>
+</div>
+
+{% endblock content %}
